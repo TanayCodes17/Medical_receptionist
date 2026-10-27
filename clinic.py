@@ -6,10 +6,20 @@ CLINIC_INFO = {
     "services": ["General consultation", "Routine checkups"],
 }
 
-def get_clinic_info(topic:str) -> str:
-    #Return the requested information about the clinic
+def get_clinic_info(
+    topic: str,
+) -> dict[str, str | bool | None]:
+    """Return clinic information with a consistent result structure."""
 
     if topic not in CLINIC_INFO:
-        return "Sorry, I don't have that information."
+        return {
+            "success": False,
+            "data": None,
+            "error": "unknown_topic",
+        }
 
-    return str(CLINIC_INFO[topic])
+    return {
+        "success": True,
+        "data": str(CLINIC_INFO[topic]),
+        "error": None,
+    }
